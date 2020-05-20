@@ -2,7 +2,7 @@
 
 namespace dapi_client_csharp
 {
-    public class Class1
+    public class DAPIClient
     {
     }
 }
