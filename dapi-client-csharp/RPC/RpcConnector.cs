@@ -15,7 +15,7 @@ namespace dapi_client_csharp.RPC
         {
             var jsonRpcRequest = new JsonRpcRequest(1, rpcMethod.ToString(), parameters);
             var webRequest = (HttpWebRequest) WebRequest.Create(seedURL);            
-            webRequest.ContentType = "application/json-rpc";
+            webRequest.ContentType = "application/json";
             webRequest.Method = "POST";
             webRequest.Proxy = null;
             webRequest.Timeout = 10 * 1000;

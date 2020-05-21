@@ -17,11 +17,23 @@ namespace dapi_client_csharp.RPC
         [JsonProperty(PropertyName = "method", Order = 0)]
         public string Method { get; set; }
 
-        [JsonProperty(PropertyName = "params", Order = 1)]
-        public IList<object> Parameters { get; set; }
-
-        [JsonProperty(PropertyName = "id", Order = 2)]
+        [JsonProperty(PropertyName = "id", Order = 1)]
         public int Id { get; set; }
+
+        [JsonProperty(PropertyName = "jsonrpc", Order = 2)]
+        public string JsonRPC { 
+            get
+            {
+                return "2.0";
+            } 
+            set
+            {
+                JsonRPC = value;
+            }
+        }
+
+        [JsonProperty(PropertyName = "params", Order = 3)]
+        public IList<object> Parameters { get; set; }
 
         public byte[] GetBytes()
         {
