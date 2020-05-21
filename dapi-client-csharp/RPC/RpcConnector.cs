@@ -11,7 +11,7 @@ namespace dapi_client_csharp.RPC
     {
         static string seedURL = "http://seed.evonet.networks.dash.org:3000";
 
-        public T MakeRequest<T>(RpcMethods rpcMethod, params object[] parameters)
+        public T MakeRequest<T>(RpcMethods rpcMethod, object parameters)
         {
             var jsonRpcRequest = new JsonRpcRequest(1, rpcMethod.ToString(), parameters);
             var webRequest = (HttpWebRequest) WebRequest.Create(seedURL);            
@@ -126,8 +126,7 @@ namespace dapi_client_csharp.RPC
             }
             catch (Exception exception)
             {
-                var queryParameters = jsonRpcRequest.Parameters.Cast<string>().Aggregate(string.Empty, (current, parameter) => current + (parameter + " "));
-                throw new Exception($"A problem was encountered while calling MakeRpcRequest() for: {jsonRpcRequest.Method} with parameters: {queryParameters}. \nException: {exception.Message}");
+                throw new Exception($"A problem was encountered while calling MakeRpcRequest() for: {jsonRpcRequest.Method}. \nException: {exception.Message}");
             }
         }
 

@@ -7,11 +7,11 @@ namespace dapi_client_csharp.RPC
 {
     public class JsonRpcRequest
     {
-        public JsonRpcRequest(int id, string method, params object[] parameters)
+        public JsonRpcRequest(int id, string method, object parameters)
         {
             Id = id;
             Method = method;
-            Parameters = parameters?.ToList() ?? new List<object>();
+            Parameters = parameters ?? new object();
         }
 
         [JsonProperty(PropertyName = "method", Order = 0)]
@@ -33,7 +33,7 @@ namespace dapi_client_csharp.RPC
         }
 
         [JsonProperty(PropertyName = "params", Order = 3)]
-        public IList<object> Parameters { get; set; }
+        public object Parameters { get; set; }
 
         public byte[] GetBytes()
         {
