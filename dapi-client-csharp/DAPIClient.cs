@@ -1,25 +1,33 @@
 ﻿using dapi_client_csharp.Models;
 using dapi_client_csharp.RPC;
 using Newtonsoft.Json.Linq;
+using Grpc.Core;
 using Grpc.Net.Client;
-using Org.Dash.Platform.Dapi.V0;
+using static Org.Dash.Platform.Dapi.V0.Core;
 using static Org.Dash.Platform.Dapi.V0.Platform;
+using static Org.Dash.Platform.Dapi.V0.TransactionsFilterStream;
+using Org.Dash.Platform.Dapi.V0;
 
 namespace dapi_client_csharp
 {
     public class DAPIClient
     {   
-        string gRPCServer = "seed.evonet.networks.dash.org:3010";
+        string gRPCServer = "http://seed.evonet.networks.dash.org:3010";
         protected readonly IRpcConnector _rpcConnector;
         GrpcChannel channel;
-        PlatformClient client;
+        PlatformClient platformClient;
+        CoreClient coreClient;
+        TransactionsFilterStreamClient transactionsFilterStreamClient;
 
         public DAPIClient(){
             _rpcConnector = new RpcConnector();
             channel = GrpcChannel.ForAddress(gRPCServer);
-            client = new Platform.PlatformClient(channel);
+            coreClient = new CoreClient(channel);
+            platformClient = new PlatformClient(channel);
+            transactionsFilterStreamClient = new TransactionsFilterStreamClient(channel);
         }
 
+        //JSON-RPC Endpoints
         public JObject getAddressSummary(GetAddressSummaryParameter parameter){
             return _rpcConnector.MakeRequest<JObject>(RpcMethods.getAddressSummary, parameter);
         }
@@ -40,5 +48,13 @@ namespace dapi_client_csharp
             return _rpcConnector.MakeRequest<JObject>(RpcMethods.getUTXO, parameter);
         }
 
+
+        //gRPC Endpoints
+        //Core gRPC Endpoints
+        //Platform gRPC Endpoints
+        public ApplyStateTransitionResponse applyStateTransition(ApplyStateTransitionRequest request){
+            return platformClient.applyStateTransition(request);
+        }
+        //Transaction Streaming gRPC Endpoints
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using dapi_client_csharp;
 using dapi_client_csharp.Models;
+using Google.Protobuf;
+using Org.Dash.Platform.Dapi.V0;
 
 namespace tests
 {
@@ -38,6 +40,11 @@ namespace tests
             paramGetUTXO.fromHeight = 5000;
             paramGetUTXO.toHeight = 20000;
             Console.WriteLine("getUTXO: " + dapi.getUTXO(paramGetUTXO));
+
+            //Example applyStateTransition
+            ApplyStateTransitionRequest request = new ApplyStateTransitionRequest();
+            request.StateTransition = ByteString.FromBase64("pmR0eXBlAmdhY3Rpb25zgQFpZG9jdW1lbnRzgaZkJHJldgFlJHR5cGVocHJlb3JkZXJnJHVzZXJJZHgsR0pNVm51UzdYVFhkaWtnalFyRDR0TjVaSkNYem02eE12R0dyNVNkdGVjcDFoJGVudHJvcHl4InlVOXVta1Q0QnZjQWpQSmpGRVRGNW9CbUgzdEEyU3FKS2drJGNvbnRyYWN0SWR4LDJLZk1jTXhrdEtpbUp4QVpVZVp3WWtGVXNFY0FaaERLRXBRczhHTW5wVXNlcHNhbHRlZERvbWFpbkhhc2h4XjU2MmQ4Y2Q1YTQ1Nzg4ZWU0MWM3YzNiYWNhZGU5ODMwNGY0MTk0MzkyOTA4NDgxMzljOWZiZDU2MTI3NDY1NzM3NDJlNzQ2ODY1NzA2ODY1N2EzMzJlNjQ2MTczNjhpc2lnbmF0dXJleFhIMkxxMW5pM1cyR0Q0TXlqK3lzSHdOMExKRXdHSjExMTRaTHExL0dTalJxakliY2Z0VzcvUkpZVFozeFhnOW0wTTJ4SnVJSEwvMzVGUFVUdUkxUUFBSTg9b3Byb3RvY29sVmVyc2lvbgB0c2lnbmF0dXJlUHVibGljS2V5SWQB");
+            Console.WriteLine("applyStateTransition: " + dapi.applyStateTransition(request));
 
         }
     }
