@@ -24,12 +24,12 @@ namespace dapi_client_csharp
             return _rpcConnector.MakeRequest<string>(RpcMethods.getBlockHash, parameter);
         }
 
-        public string getMnListDiff(string baseBlockHash, string blockHash){
-            return "";//_rpcConnector.MakeRequest<string>(RpcMethods.getMnListDiff, baseBlockHash, blockHash);
+        public JObject getMnListDiff(GetMnListDiffParameter parameter){
+            return _rpcConnector.MakeRequest<JObject>(RpcMethods.getMnListDiff, parameter);
         }
 
-        public string getUTXO(string[] address, int from, int to, int fromHeight, int toHeight){
-            return "";//_rpcConnector.MakeRequest<string>(RpcMethods.getUTXO, address, from, to, fromHeight, toHeight);
+        public JObject getUTXO(GetUTXOParameter parameter){
+            return _rpcConnector.MakeRequest<JObject>(RpcMethods.getUTXO, parameter);
         }
 
     }

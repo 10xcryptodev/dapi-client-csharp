@@ -25,17 +25,19 @@ namespace tests
             Console.WriteLine("getBlockHash: " + dapi.getBlockHash(paramBlockHash));
             
             //Example getMnListDiff
-            string baseBlockHash = "5ad690bcbedeb8be47e840cd869485d802c9331488604d57a5a14e8e5db3129d";
-            string blockHash = "0000018b02092f8b21ebbed244784191af95edd75a3b39262ff5e975c4addb2e";
-            Console.WriteLine("getMnListDiff: " + dapi.getMnListDiff(baseBlockHash,blockHash));
+            GetMnListDiffParameter paramGetMn = new GetMnListDiffParameter();
+            paramGetMn.baseBlockHash = "5ad690bcbedeb8be47e840cd869485d802c9331488604d57a5a14e8e5db3129d";
+            paramGetMn.blockHash = "0000018b02092f8b21ebbed244784191af95edd75a3b39262ff5e975c4addb2e";
+            Console.WriteLine("getMnListDiff: " + dapi.getMnListDiff(paramGetMn));
 
             //Example getUTXO
-            string[] addressUTXO = new string[2]{"yeVomBV7cQgdEqUsm3vWxQsLgrwqw7viRH","yN7E9PWBT9c5NBJnzHBU3ZfwzFpQZG9Wpe"};
-            int from = 0;
-            int to = 5;
-            int fromHeight = 5000;
-            int toHeight = 20000;
-            Console.WriteLine("getUTXO: " + dapi.getUTXO(addressUTXO, from, to, fromHeight, toHeight));
+            GetUTXOParameter paramGetUTXO = new GetUTXOParameter();
+            paramGetUTXO.address = new string[2]{"yeVomBV7cQgdEqUsm3vWxQsLgrwqw7viRH","yN7E9PWBT9c5NBJnzHBU3ZfwzFpQZG9Wpe"};
+            paramGetUTXO.from = 0;
+            paramGetUTXO.to = 5;
+            paramGetUTXO.fromHeight = 5000;
+            paramGetUTXO.toHeight = 20000;
+            Console.WriteLine("getUTXO: " + dapi.getUTXO(paramGetUTXO));
 
         }
     }
