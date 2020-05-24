@@ -7,6 +7,7 @@ using static Org.Dash.Platform.Dapi.V0.Core;
 using static Org.Dash.Platform.Dapi.V0.Platform;
 using static Org.Dash.Platform.Dapi.V0.TransactionsFilterStream;
 using Org.Dash.Platform.Dapi.V0;
+using Google.Protobuf;
 
 namespace dapi_client_csharp
 {
@@ -21,6 +22,7 @@ namespace dapi_client_csharp
 
         public DAPIClient(){
             _rpcConnector = new RpcConnector();
+            System.AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             channel = GrpcChannel.ForAddress(gRPCServer);
             coreClient = new CoreClient(channel);
             platformClient = new PlatformClient(channel);
@@ -51,9 +53,22 @@ namespace dapi_client_csharp
 
         //gRPC Endpoints
         //Core gRPC Endpoints
+        public GetStatusResponse getStatus(){
+            GetStatusRequest request = new GetStatusRequest();
+            return coreClient.getStatus(request);
+        }
+
         //Platform gRPC Endpoints
-        public ApplyStateTransitionResponse applyStateTransition(ApplyStateTransitionRequest request){
-            return platformClient.applyStateTransition(request);
+        public ApplyStateTransitionResponse applyStateTransition(ApplyStateTransitionParameter parameter){
+            ApplyStateTransitionRequest request = new ApplyStateTransitionRequest();
+            request.StateTransition = ByteString.FromBase64(parameter.stateTransition);
+            ApplyStateTransitionResponse response = new ApplyStateTransitionResponse();
+            try {
+                 response = platformClient.applyStateTransition(request,null, System.DateTime.UtcNow.AddSeconds(100));            
+            }catch(System.Exception e){
+
+            }
+            return response;
         }
         //Transaction Streaming gRPC Endpoints
     }

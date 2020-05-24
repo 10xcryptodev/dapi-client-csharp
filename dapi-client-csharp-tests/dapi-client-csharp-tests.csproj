@@ -3,14 +3,6 @@
   <ItemGroup>
     <ProjectReference Include="..\dapi-client-csharp\dapi-client-csharp.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Protobuf Include="..\dapi-client-csharp\gRPC\Protos\core.proto" GrpcServices="Client" />
-    <Protobuf Include="..\dapi-client-csharp\gRPC\Protos\platform.proto" GrpcServices="Client" />
-    <Protobuf Include="..\dapi-client-csharp\gRPC\Protos\transactions_filter_stream.proto" GrpcServices="Client" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.12.1" />
-  </ItemGroup>
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
