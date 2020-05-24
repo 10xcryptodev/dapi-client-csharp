@@ -9,6 +9,7 @@ using Org.Dash.Platform.Dapi.V0;
 using Google.Protobuf;
 using Grpc.Core;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace dapi_client_csharp
 {
@@ -24,10 +25,18 @@ namespace dapi_client_csharp
         public DAPIClient(){
             _rpcConnector = new RpcConnector();
             System.AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+            // GrpcChannelOptions options = new GrpcChannelOptions();            
+            // options.Credentials = ChannelCredentials.Insecure;
+            // options.HttpClient = new System.Net.Http.HttpClient();
+            // options.HttpClient.Timeout = new System.TimeSpan(2000);
             channel = GrpcChannel.ForAddress(gRPCServer);
             coreClient = new CoreClient(channel);
             platformClient = new PlatformClient(channel);
             transactionsFilterStreamClient = new TransactionsFilterStreamClient(channel);
+        }
+
+        ~DAPIClient(){
+            channel.ShutdownAsync();
         }
 
         //JSON-RPC Endpoints
@@ -118,13 +127,11 @@ namespace dapi_client_csharp
         }
 
         //Transaction Streaming gRPC 
-        public IAsyncEnumerator<TransactionsWithProofsResponse> subscribeToTransactionsWithProofs(SubscribeToTransactionsWithProofsParameter parameter){
+        public IAsyncEnumerable<TransactionsWithProofsResponse> subscribeToTransactionsWithProofs(SubscribeToTransactionsWithProofsParameter parameter){
             TransactionsWithProofsRequest request = new TransactionsWithProofsRequest();
             BloomFilter bloom = new BloomFilter();
             if(!string.IsNullOrEmpty(parameter.v_data)){
                 bloom.VData = ByteString.CopyFromUtf8(parameter.v_data);
-            }else{
-                bloom.VData = ByteString.Empty;
             }
             bloom.NFlags = parameter.n_flags;
             bloom.NHashFuncs = parameter.n_hash_funcs;
@@ -132,11 +139,13 @@ namespace dapi_client_csharp
             if(!string.IsNullOrEmpty(parameter.FromBlockHash)){
                 request.FromBlockHash = ByteString.CopyFromUtf8(parameter.FromBlockHash);
             }
+            request.BloomFilter = bloom;
             request.FromBlockHeight = parameter.FromBlockHeight;
             request.Count = parameter.Count;
             request.SendTransactionHashes = parameter.SendTransactionHashes;
             
-            return transactionsFilterStreamClient.subscribeToTransactionsWithProofs(request).ResponseStream.ReadAllAsync().GetAsyncEnumerator();
+            AsyncServerStreamingCall<TransactionsWithProofsResponse> serverStreamingCall = transactionsFilterStreamClient.subscribeToTransactionsWithProofs(request);
+            return serverStreamingCall.ResponseStream.ReadAllAsync();            
         }
     }
 }

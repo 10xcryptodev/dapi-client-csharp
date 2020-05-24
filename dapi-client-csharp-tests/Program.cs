@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using dapi_client_csharp;
 using dapi_client_csharp.Models;
+using Org.Dash.Platform.Dapi.V0;
 
 namespace tests
 {
@@ -10,8 +12,8 @@ namespace tests
         static DAPIClient dapi;
         static void Main(string[] args)
         {
-            dapi = new DAPIClient();
-            
+            dapi = new DAPIClient();    
+
             //Example getAddressSummary
             GetAddressSummaryParameter param = new GetAddressSummaryParameter();
             string[] address = new string[2]{"yVs4HGmHgzP4t3gZ7KrpxRzCmkQcvZmczd","ySnJVXXx9FtKUBTkovPaPPqCkTMNzDLPCu"};
@@ -110,19 +112,19 @@ namespace tests
             paramSubscribe.FromBlockHeight = 1;
             paramSubscribe.Count = 1;
             try{
-                printSubscribeToTransactionsWithProofs(paramSubscribe);
-                Console.Read();
+               printSubscribeToTransactionsWithProofs(paramSubscribe).Wait();
             }catch(Exception e){
                 Console.WriteLine("subscribeToTransactionsWithProofs: " + e.Message);
             }
 
+
         }
 
-        async static void printSubscribeToTransactionsWithProofs(SubscribeToTransactionsWithProofsParameter paramSubscribe){
-            while (await dapi.subscribeToTransactionsWithProofs(paramSubscribe).MoveNextAsync())
-            {
-                Console.WriteLine("subscribeToTransactionsWithProofs: " + dapi.subscribeToTransactionsWithProofs(paramSubscribe).Current);   
-            }  
+        public static async Task printSubscribeToTransactionsWithProofs(SubscribeToTransactionsWithProofsParameter paramSubscribe){
+            IAsyncEnumerable<TransactionsWithProofsResponse> list = dapi.subscribeToTransactionsWithProofs(paramSubscribe);               
+            await foreach(var item in list){
+                Console.WriteLine("subscribeToTransactionsWithProofs: " + item);   
+            }
         }
         
     }
