@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using dapi_client_csharp;
 using dapi_client_csharp.Models;
 
@@ -6,9 +7,10 @@ namespace tests
 {
     class Program
     {
+        static DAPIClient dapi;
         static void Main(string[] args)
         {
-            DAPIClient dapi = new DAPIClient();
+            dapi = new DAPIClient();
             
             //Example getAddressSummary
             GetAddressSummaryParameter param = new GetAddressSummaryParameter();
@@ -99,6 +101,29 @@ namespace tests
                 Console.WriteLine("getDocuments: " + e.Message);
             }
 
+            //Example subscribeToTransactionsWithProofs
+            SubscribeToTransactionsWithProofsParameter paramSubscribe = new SubscribeToTransactionsWithProofsParameter();
+            paramSubscribe.n_hash_funcs = 11;
+            paramSubscribe.v_data = "";
+            paramSubscribe.n_tweak = 0;
+            paramSubscribe.n_flags = 0;
+            paramSubscribe.FromBlockHeight = 1;
+            paramSubscribe.Count = 1;
+            try{
+                printSubscribeToTransactionsWithProofs(paramSubscribe);
+                Console.Read();
+            }catch(Exception e){
+                Console.WriteLine("subscribeToTransactionsWithProofs: " + e.Message);
+            }
+
         }
+
+        async static void printSubscribeToTransactionsWithProofs(SubscribeToTransactionsWithProofsParameter paramSubscribe){
+            while (await dapi.subscribeToTransactionsWithProofs(paramSubscribe).MoveNextAsync())
+            {
+                Console.WriteLine("subscribeToTransactionsWithProofs: " + dapi.subscribeToTransactionsWithProofs(paramSubscribe).Current);   
+            }  
+        }
+        
     }
 }

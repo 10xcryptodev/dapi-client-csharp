@@ -1,13 +1,14 @@
 ﻿using dapi_client_csharp.Models;
 using dapi_client_csharp.RPC;
 using Newtonsoft.Json.Linq;
-using Grpc.Core;
 using Grpc.Net.Client;
 using static Org.Dash.Platform.Dapi.V0.Core;
 using static Org.Dash.Platform.Dapi.V0.Platform;
 using static Org.Dash.Platform.Dapi.V0.TransactionsFilterStream;
 using Org.Dash.Platform.Dapi.V0;
 using Google.Protobuf;
+using Grpc.Core;
+using System.Collections.Generic;
 
 namespace dapi_client_csharp
 {
@@ -116,6 +117,26 @@ namespace dapi_client_csharp
             return platformClient.getDocuments(request);
         }
 
-        //Transaction Streaming gRPC Endpoints
+        //Transaction Streaming gRPC 
+        public IAsyncEnumerator<TransactionsWithProofsResponse> subscribeToTransactionsWithProofs(SubscribeToTransactionsWithProofsParameter parameter){
+            TransactionsWithProofsRequest request = new TransactionsWithProofsRequest();
+            BloomFilter bloom = new BloomFilter();
+            if(!string.IsNullOrEmpty(parameter.v_data)){
+                bloom.VData = ByteString.CopyFromUtf8(parameter.v_data);
+            }else{
+                bloom.VData = ByteString.Empty;
+            }
+            bloom.NFlags = parameter.n_flags;
+            bloom.NHashFuncs = parameter.n_hash_funcs;
+            bloom.NTweak = parameter.n_tweak;
+            if(!string.IsNullOrEmpty(parameter.FromBlockHash)){
+                request.FromBlockHash = ByteString.CopyFromUtf8(parameter.FromBlockHash);
+            }
+            request.FromBlockHeight = parameter.FromBlockHeight;
+            request.Count = parameter.Count;
+            request.SendTransactionHashes = parameter.SendTransactionHashes;
+            
+            return transactionsFilterStreamClient.subscribeToTransactionsWithProofs(request).ResponseStream.ReadAllAsync().GetAsyncEnumerator();
+        }
     }
 }
