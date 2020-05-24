@@ -94,6 +94,12 @@ namespace dapi_client_csharp
             return platformClient.getIdentity(request);
         }
 
+        public GetDataContractResponse getDataContract(string id){
+            GetDataContractRequest request = new GetDataContractRequest();
+            request.Id = id;
+            return platformClient.getDataContract(request);
+        }
+
         //Transaction Streaming gRPC Endpoints
     }
 }

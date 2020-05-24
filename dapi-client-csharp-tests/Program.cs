@@ -80,6 +80,13 @@ namespace tests
                 Console.WriteLine("getIdentity: " + e.Message);
             }
 
+            string dataContractId = "5wpZAEWndYcTeuwZpkmSa8s49cHXU5q2DhdibesxFSu8";
+            try{
+                Console.WriteLine("getDataContract: " + dapi.getDataContract(dataContractId));
+            }catch(Exception e){
+                Console.WriteLine("getDataContract: " + e.Message);
+            }
+
         }
     }
 }
