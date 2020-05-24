@@ -80,11 +80,23 @@ namespace tests
                 Console.WriteLine("getIdentity: " + e.Message);
             }
 
+            //Example getDataContract
             string dataContractId = "5wpZAEWndYcTeuwZpkmSa8s49cHXU5q2DhdibesxFSu8";
             try{
                 Console.WriteLine("getDataContract: " + dapi.getDataContract(dataContractId));
             }catch(Exception e){
                 Console.WriteLine("getDataContract: " + e.Message);
+            }
+
+            //Example getDocuments
+            GetDocumentsParameter paramGetDocuments = new GetDocumentsParameter();
+            paramGetDocuments.DataContractId = "5wpZAEWndYcTeuwZpkmSa8s49cHXU5q2DhdibesxFSu8";
+            paramGetDocuments.DocumentType = "note";
+            paramGetDocuments.Limit = 1;
+            try{
+                Console.WriteLine("getDocuments: " + dapi.getDocuments(paramGetDocuments));
+            }catch(Exception e){
+                Console.WriteLine("getDocuments: " + e.Message);
             }
 
         }

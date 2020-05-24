@@ -100,6 +100,22 @@ namespace dapi_client_csharp
             return platformClient.getDataContract(request);
         }
 
+        public GetDocumentsResponse getDocuments(GetDocumentsParameter parameter){
+            GetDocumentsRequest request = new GetDocumentsRequest();
+            request.DataContractId = parameter.DataContractId;
+            request.DocumentType = parameter.DocumentType;
+            if(!string.IsNullOrEmpty(parameter.Where)){
+                request.Where = ByteString.CopyFromUtf8(parameter.Where);
+            }
+            if(!string.IsNullOrEmpty(parameter.OrderBy)){
+                request.OrderBy = ByteString.CopyFromUtf8(parameter.OrderBy);
+            }
+            request.Limit = parameter.Limit;
+            request.StartAt = parameter.StartAt;
+            request.StartAfter = parameter.StartAfter;
+            return platformClient.getDocuments(request);
+        }
+
         //Transaction Streaming gRPC Endpoints
     }
 }
