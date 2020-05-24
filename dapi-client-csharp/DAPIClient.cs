@@ -58,6 +58,15 @@ namespace dapi_client_csharp
             return coreClient.getStatus(request);
         }
 
+        public GetBlockResponse getBlock(GetBlockParameter parameter){
+            GetBlockRequest request = new GetBlockRequest();
+            if(!string.IsNullOrEmpty(parameter.hash)){
+                request.Hash = parameter.hash;
+            }
+            request.Height = parameter.height;
+            return coreClient.getBlock(request);
+        }
+
         //Platform gRPC Endpoints
         public ApplyStateTransitionResponse applyStateTransition(ApplyStateTransitionParameter parameter){
             ApplyStateTransitionRequest request = new ApplyStateTransitionRequest();
