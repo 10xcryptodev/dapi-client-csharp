@@ -75,10 +75,16 @@ namespace dapi_client_csharp
             return coreClient.sendTransaction(request);
         }
 
+        public GetTransactionResponse getTransaction(string id){
+            GetTransactionRequest request = new GetTransactionRequest();
+            request.Id = id;
+            return coreClient.getTransaction(request);
+        }
+
         //Platform gRPC Endpoints
-        public ApplyStateTransitionResponse applyStateTransition(ApplyStateTransitionParameter parameter){
+        public ApplyStateTransitionResponse applyStateTransition(string stateTransition){
             ApplyStateTransitionRequest request = new ApplyStateTransitionRequest();
-            request.StateTransition = ByteString.FromBase64(parameter.stateTransition);
+            request.StateTransition = ByteString.FromBase64(stateTransition);
             return platformClient.applyStateTransition(request);
         }
         //Transaction Streaming gRPC Endpoints
