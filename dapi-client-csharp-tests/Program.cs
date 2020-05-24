@@ -72,6 +72,14 @@ namespace tests
                 Console.WriteLine("applyStateTransition: " + e.Message);
             }
 
+            //Example getIdentity
+            string identity = "JCaTiRxm4dRN1GJqoNkpowmvisC7BbgPW48pJ6roLSgw";
+            try{
+                Console.WriteLine("getIdentity: " + dapi.getIdentity(identity));
+            }catch(Exception e){
+                Console.WriteLine("getIdentity: " + e.Message);
+            }
+
         }
     }
 }

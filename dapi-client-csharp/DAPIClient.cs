@@ -87,6 +87,13 @@ namespace dapi_client_csharp
             request.StateTransition = ByteString.FromBase64(stateTransition);
             return platformClient.applyStateTransition(request);
         }
+
+        public GetIdentityResponse getIdentity(string id){
+            GetIdentityRequest request = new GetIdentityRequest();
+            request.Id = id;
+            return platformClient.getIdentity(request);
+        }
+
         //Transaction Streaming gRPC Endpoints
     }
 }
