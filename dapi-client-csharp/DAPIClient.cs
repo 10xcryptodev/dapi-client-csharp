@@ -67,17 +67,19 @@ namespace dapi_client_csharp
             return coreClient.getBlock(request);
         }
 
+        public SendTransactionResponse sendTransaction(SendTransactionParameter parameter){
+            SendTransactionRequest request = new SendTransactionRequest();
+            request.Transaction = ByteString.CopyFromUtf8(parameter.transaction);
+            request.AllowHighFees = parameter.allow_high_fees;
+            request.BypassLimits = parameter.bypass_limits;
+            return coreClient.sendTransaction(request);
+        }
+
         //Platform gRPC Endpoints
         public ApplyStateTransitionResponse applyStateTransition(ApplyStateTransitionParameter parameter){
             ApplyStateTransitionRequest request = new ApplyStateTransitionRequest();
             request.StateTransition = ByteString.FromBase64(parameter.stateTransition);
-            ApplyStateTransitionResponse response = new ApplyStateTransitionResponse();
-            try {
-                 response = platformClient.applyStateTransition(request,null, System.DateTime.UtcNow.AddSeconds(100));            
-            }catch(System.Exception e){
-
-            }
-            return response;
+            return platformClient.applyStateTransition(request);
         }
         //Transaction Streaming gRPC Endpoints
     }

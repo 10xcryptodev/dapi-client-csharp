@@ -46,11 +46,24 @@ namespace tests
             GetBlockParameter paramGetBlock = new GetBlockParameter();
             paramGetBlock.height = 1;
             Console.WriteLine("getBlock: " + dapi.getBlock(paramGetBlock));
-            
+
+            //Example sendTransaction
+            SendTransactionParameter paramSendTransaction = new SendTransactionParameter();
+            paramSendTransaction.transaction = "020000000123c52118bfc5da0222a569d379ce3e3a9ca18976175785fd45b3f8990341768b000000006b483045022100a3952306ccb38e1eb22d9956ab40744b79e3072621e634e19225ad8a15603e3102201a3724cb9a8216e78139793c953245b0890c207e13af86bb02735f50a5bccad9012103439cfc2b5fab7fe05c0fbf8fa9217707a5bf5badb7c7e6db05bd0fb1231c5c8bfeffffff0200e1f505000000001976a91468b39aad690ffb710b4ba522d742670b763b501988ac1ec34f95010000001976a91445ada709129f7b6381559c8a16f1ec83c0b3ca8c88acb4240000";
+            try{
+                Console.WriteLine("sendTransaction: " + dapi.sendTransaction(paramSendTransaction));
+            }catch(Exception e){
+                Console.WriteLine("sendTransaction: " + e.Message);
+            }
+
             //Example applyStateTransition
             ApplyStateTransitionParameter paramApply = new ApplyStateTransitionParameter();
             paramApply.stateTransition = "pmR0eXBlAmdhY3Rpb25zgQFpZG9jdW1lbnRzgaZkJHJldgFlJHR5cGVocHJlb3JkZXJnJHVzZXJJZHgsR0pNVm51UzdYVFhkaWtnalFyRDR0TjVaSkNYem02eE12R0dyNVNkdGVjcDFoJGVudHJvcHl4InlVOXVta1Q0QnZjQWpQSmpGRVRGNW9CbUgzdEEyU3FKS2drJGNvbnRyYWN0SWR4LDJLZk1jTXhrdEtpbUp4QVpVZVp3WWtGVXNFY0FaaERLRXBRczhHTW5wVXNlcHNhbHRlZERvbWFpbkhhc2h4XjU2MmQ4Y2Q1YTQ1Nzg4ZWU0MWM3YzNiYWNhZGU5ODMwNGY0MTk0MzkyOTA4NDgxMzljOWZiZDU2MTI3NDY1NzM3NDJlNzQ2ODY1NzA2ODY1N2EzMzJlNjQ2MTczNjhpc2lnbmF0dXJleFhIMkxxMW5pM1cyR0Q0TXlqK3lzSHdOMExKRXdHSjExMTRaTHExL0dTalJxakliY2Z0VzcvUkpZVFozeFhnOW0wTTJ4SnVJSEwvMzVGUFVUdUkxUUFBSTg9b3Byb3RvY29sVmVyc2lvbgB0c2lnbmF0dXJlUHVibGljS2V5SWQB";
-            Console.WriteLine("applyStateTransition: " + dapi.applyStateTransition(paramApply));
+            try{
+                Console.WriteLine("applyStateTransition: " + dapi.applyStateTransition(paramApply));
+            }catch(Exception e){
+                Console.WriteLine("applyStateTransition: " + e.Message);
+            }
 
         }
     }
