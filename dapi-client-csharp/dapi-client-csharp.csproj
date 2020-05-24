@@ -2,6 +2,15 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>dapi_client_csharp</RootNamespace>
+    <Authors>10xcryptodev</Authors>
+    <PackageTags>dash,dapi,dapi client</PackageTags>
+    <PackageProjectUrl>https://dashplatform.readme.io/docs/reference-dapi-endpoints</PackageProjectUrl>
+    <Version>1.0.2</Version>
+    <PackageIcon>dash-d-circle-250.png</PackageIcon>
+    <PackageDescription>This package provides a basic binding for DAPI endpoints. Endpoints docs could be found in https://dashplatform.readme.io/docs/reference-dapi-endpoints</PackageDescription>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/10xcryptodev/dapi-client-csharp</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.12.1" />
@@ -12,6 +21,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <None Include="dash-d-circle-250.png" Pack="true" PackagePath=""/>
   </ItemGroup>
   <ItemGroup>
     <Protobuf Include="gRPC\Protos\core.proto" GrpcServices="Client" />
