@@ -1,7 +1,8 @@
 # dapi-client-csharp
 ## Endpoints docs
 https://dashplatform.readme.io/docs/reference-dapi-endpoints
-## Install NuGet
+
+## Install NuGet package
 `dotnet add package dapi-client-csharp`
 
 More package info: https://www.nuget.org/packages/dapi-client-csharp/
