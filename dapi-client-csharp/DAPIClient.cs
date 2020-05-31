@@ -25,10 +25,6 @@ namespace dapi_client_csharp
         public DAPIClient(){
             _rpcConnector = new RpcConnector();
             System.AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-            // GrpcChannelOptions options = new GrpcChannelOptions();            
-            // options.Credentials = ChannelCredentials.Insecure;
-            // options.HttpClient = new System.Net.Http.HttpClient();
-            // options.HttpClient.Timeout = new System.TimeSpan(2000);
             channel = GrpcChannel.ForAddress(gRPCServer);
             coreClient = new CoreClient(channel);
             platformClient = new PlatformClient(channel);
