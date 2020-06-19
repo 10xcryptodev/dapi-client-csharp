@@ -61,7 +61,7 @@ namespace tests
             }
 
             //Example getTransaction
-            string id = "29b68163a22d89c14e24f1281cb4608b8dc7be05bc2604e2cecf8a85b1dede0d";
+            string id = "0f8409a5239150bc9a12c2d3b9a430dcc515ef562906a46e2bfb3ba418d8c9e3";
             try{
                 Console.WriteLine("getTransaction: " + dapi.getTransaction(id));
             }catch(Exception e){
@@ -77,7 +77,7 @@ namespace tests
             }
 
             //Example getIdentity
-            string identity = "JCaTiRxm4dRN1GJqoNkpowmvisC7BbgPW48pJ6roLSgw";
+            string identity = "C7id2mah2RkiroiTy6h134hLgS6A47jhh5x91tvw16bz";
             try{
                 Console.WriteLine("getIdentity: " + dapi.getIdentity(identity));
             }catch(Exception e){
@@ -85,7 +85,7 @@ namespace tests
             }
 
             //Example getDataContract
-            string dataContractId = "5wpZAEWndYcTeuwZpkmSa8s49cHXU5q2DhdibesxFSu8";
+            string dataContractId = "ARQGUnPH3YMK8FZuqwUjnTWEF6Zu4Cf3sT6e1Ruu1RXk";
             try{
                 Console.WriteLine("getDataContract: " + dapi.getDataContract(dataContractId));
             }catch(Exception e){
@@ -94,13 +94,28 @@ namespace tests
 
             //Example getDocuments
             GetDocumentsParameter paramGetDocuments = new GetDocumentsParameter();
-            paramGetDocuments.DataContractId = "5wpZAEWndYcTeuwZpkmSa8s49cHXU5q2DhdibesxFSu8";
+            paramGetDocuments.DataContractId = "ARQGUnPH3YMK8FZuqwUjnTWEF6Zu4Cf3sT6e1Ruu1RXk";
             paramGetDocuments.DocumentType = "note";
             paramGetDocuments.Limit = 1;
             try{
                 Console.WriteLine("getDocuments: " + dapi.getDocuments(paramGetDocuments));
             }catch(Exception e){
                 Console.WriteLine("getDocuments: " + e.Message);
+            }
+
+            //Example getIdentityByFirstPublicKey
+            string publicKeyHash = "4e2736d0eecca645821089eb4b2422544e045655";
+            try{
+                Console.WriteLine("getIdentityByFirstPublicKey: " + dapi.getIdentityByFirstPublicKey(publicKeyHash));
+            }catch(Exception e){
+                Console.WriteLine("getIdentityByFirstPublicKey: " + e.Message);
+            }
+
+            //Example getIdentityIdByFirstPublicKey
+            try{
+                Console.WriteLine("getIdentityIdByFirstPublicKey: " + dapi.getIdentityIdByFirstPublicKey(publicKeyHash));
+            }catch(Exception e){
+                Console.WriteLine("getIdentityIdByFirstPublicKey: " + e.Message);
             }
 
             //Example subscribeToTransactionsWithProofs
