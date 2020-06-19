@@ -5,7 +5,7 @@
     <Authors>10xcryptodev</Authors>
     <PackageTags>dash,dapi,dapi client</PackageTags>
     <PackageProjectUrl>https://dashplatform.readme.io/docs/reference-dapi-endpoints</PackageProjectUrl>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <PackageIcon>dash-d-circle-250.png</PackageIcon>
     <PackageDescription>This package provides a basic binding for DAPI endpoints. Endpoints docs could be found in https://dashplatform.readme.io/docs/reference-dapi-endpoints</PackageDescription>
     <RepositoryType>git</RepositoryType>
