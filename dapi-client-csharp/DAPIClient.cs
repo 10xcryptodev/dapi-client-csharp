@@ -122,6 +122,18 @@ namespace dapi_client_csharp
             return platformClient.getDocuments(request);
         }
 
+        public GetIdentityByFirstPublicKeyResponse getIdentityByFirstPublicKey(string publicKeyHash){
+            GetIdentityByFirstPublicKeyRequest request = new GetIdentityByFirstPublicKeyRequest();
+            request.PublicKeyHash = ByteString.CopyFromUtf8(publicKeyHash);
+            return platformClient.getIdentityByFirstPublicKey(request);
+        }
+
+        public GetIdentityIdByFirstPublicKeyResponse getIdentityIdByFirstPublicKey(string publicKeyHash){
+            GetIdentityIdByFirstPublicKeyRequest request = new GetIdentityIdByFirstPublicKeyRequest();
+            request.PublicKeyHash = ByteString.CopyFromUtf8(publicKeyHash);
+            return platformClient.getIdentityIdByFirstPublicKey(request);
+        }
+
         //Transaction Streaming gRPC 
         public IAsyncEnumerable<TransactionsWithProofsResponse> subscribeToTransactionsWithProofs(SubscribeToTransactionsWithProofsParameter parameter){
             TransactionsWithProofsRequest request = new TransactionsWithProofsRequest();
